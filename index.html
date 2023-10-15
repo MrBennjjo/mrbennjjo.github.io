@@ -17,9 +17,9 @@
     };
 
     clearForm = function () {
-      const clearElements = document.getElementsByClassName("control");
+      const clearElements = document.getElementsByClassName("form-input");
       for (const clearElement of clearElements) {
-        clearElement.children[0].value = "";
+        clearElement.value = "";
       }
     };
 
@@ -108,20 +108,20 @@
             <div class="field">
               <label class="label">Name</label>
               <div class="control">
-                <input class="input" type="text" name="from_name" placeholder="Your Name" />
+                <input class="input form-input" type="text" name="from_name" placeholder="Your Name" />
               </div>
             </div>
             <div class="field">
               <label class="label">Email</label>
               <div class="control">
-                <input class="input" type="text" name="reply_to" placeholder="Your Email" />
+                <input class="input form-input" type="text" name="reply_to" placeholder="Your Email" />
               </div>
             </div>
 
             <div class="field">
               <label class="label">Message</label>
               <div class="control">
-                <textarea class="textarea" name="message" placeholder="Your Message"></textarea>
+                <textarea class="textarea form-input" name="message" placeholder="Your Message"></textarea>
               </div>
             </div>
 
