@@ -1,64 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
-    <title>BJM IT Services LTD</title>
-  </head>
 
-  <body>
-    <section class="hero is-primary">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">BJM IT Services LTD</h1>
-          <h2 class="subtitle">
-            We build innovative Salesforce solutions for your business.
-          </h2>
+<head>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+      emailjs.init('l4fsCQLXWG1DUridb');
+    })();
+  </script>
+  <script type="text/javascript">
+    disableEnableForm = function (value) {
+      const disableElements = document.getElementsByClassName("control");
+      for (const disableElement of disableElements) {
+        disableElement.children[0].disabled = value;
+      }
+    };
+
+    clearForm = function () {
+      const clearElements = document.getElementsByClassName("control");
+      for (const clearElement of clearElements) {
+        clearElement.children[0].value = "";
+      }
+    };
+
+    openModal = function (openClose) {
+      const modal = document.getElementById("success-modal");
+      if (openClose) {
+        modal.classList.add("is-active");
+      } else {
+        modal.classList.remove("is-active");
+      }
+    }
+
+    window.onload = function () {
+      document.getElementById('contact-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        disableEnableForm(true);
+        // these IDs from the previous steps
+        emailjs.sendForm('service_9injwsr', 'template_kg7jmnf', this)
+          .then(function () {
+            disableEnableForm(false);
+            clearForm();
+            openModal(true);
+          }, function (error) {
+            console.log('FAILED...', error);
+          });
+      });
+      const modalCloseElements = document.getElementsByClassName("modalClose");
+      for (const modalCloseElement of modalCloseElements) {
+        modalCloseElement.addEventListener("click", function (event) {
+          event.preventDefault();
+          openModal(false);
+        });
+      }
+
+    }
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+  <title>BJM IT Services LTD</title>
+</head>
+
+<body>
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">BJM IT Services LTD</h1>
+        <h2 class="subtitle">
+          We build innovative Salesforce solutions for your business.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <h3 class="title is-3">About Us</h3>
+          <p>
+            We are a small Salesforce consultancy, ran by Ben Murray. We
+            provide effective and well considered software development
+            services for a whole wide range of different needs.
+          </p>
+        </div>
+        <div class="column">
+          <h3 class="title is-3">Services</h3>
+          <ul>
+            <li>Web Application Development</li>
+            <li>Mobile App Development</li>
+            <li>Custom Software Solutions</li>
+            <li>UI/UX Design</li>
+          </ul>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column">
-            <h3 class="title is-3">About Us</h3>
-            <p>
-              We are a small Salesforce consultancy, ran by Ben Murray. We
-              provide effective and well considered software development
-              services for a whole wide range of different needs.
-            </p>
-          </div>
-          <div class="column">
-            <h3 class="title is-3">Services</h3>
-            <ul>
-              <li>Web Application Development</li>
-              <li>Mobile App Development</li>
-              <li>Custom Software Solutions</li>
-              <li>UI/UX Design</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h3 class="title is-3">Contact Us</h3>
-        <div class="columns">
-          <div class="column">
-            <form id="contact-form">
+  <section class="section">
+    <div class="container">
+      <h3 class="title is-3">Contact Us</h3>
+      <div class="columns">
+        <div class="column">
+          <form id="contact-form">
             <div class="field">
               <label class="label">Name</label>
               <div class="control">
                 <input class="input" type="text" name="from_name" placeholder="Your Name" />
               </div>
             </div>
-
             <div class="field">
               <label class="label">Email</label>
               <div class="control">
@@ -69,68 +121,51 @@
             <div class="field">
               <label class="label">Message</label>
               <div class="control">
-                <textarea
-                  class="textarea"
-                  name="message"
-                  placeholder="Your Message"
-                ></textarea>
+                <textarea class="textarea" name="message" placeholder="Your Message"></textarea>
               </div>
             </div>
 
             <div class="control">
-              <input type="submit" value="Send" class="button is-primary">Submit</input>
+              <input type="submit" name="send" value="Send" class="button is-primary"></input>
             </div>
-          </div>
-        </form>
-          <div class="column">
-            <div class="content">
-              <p>
-                Feel free to reach out to us with any inquiries or project
-                proposals. We would love to hear from you!
-              </p>
-              <br />
-              <p id="email-link"></p>
+          </form>
+        </div>
+        <div class="column">
+          <div class="content">
+            <p>
+              Feel free to reach out to us with any inquiries or project
+              proposals. We would love to hear from you!
             </p>
-            </div>
+            <br />
+            <p id="email-link"></p>
+            </p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer class="footer">
-      <div class="content has-text-centered">
-        <p>&copy; 2023 BJM IT Services LTD. All rights reserved.</p>
-        <a href="https://bulma.io">
-          <img
-            src="https://bulma.io/images/made-with-bulma.png"
-            alt="Made with Bulma"
-            width="128"
-            height="24"
-          />
-        </a>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>&copy; 2023 BJM IT Services LTD. All rights reserved.</p>
+      <a href="https://bulma.io">
+        <img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma" width="128" height="24" />
+      </a>
+    </div>
+  </footer>
+  <div id="success-modal" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+      <div class="notification is-success">
+        <button class="delete modalClose"></button>
+        Email sent successfully - we'll be in contact soon.
       </div>
-    </footer>
-  </body>
+      <!-- Your content -->
+    </div>
+
+    <button class="modal-close is-large modalClose" aria-label="close"></button>
+  </div>
+</body>
+
 </html>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script type="text/javascript">
-    (function() {
-        emailjs.init('l4fsCQLXWG1DUridb');
-    })();
-</script>
-<script type="text/javascript">
-        window.onload = function() {
-            document.getElementById('contact-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                // generate a five digit number for the contact_number variable
-                this.contact_number.value = Math.random() * 100000 | 0;
-                // these IDs from the previous steps
-                emailjs.sendForm('contact_service', 'contact_form', this)
-                    .then(function() {
-                        console.log('SUCCESS!');
-                    }, function(error) {
-                        console.log('FAILED...', error);
-                    });
-            });
-        }
-    </script>
